@@ -1,0 +1,16 @@
+Floral Print Summer Dress, Clothing, 99.99
+Casual Chiffon Blouse, Clothing, 19.99
+Apple iMac, Electornics, 999.99
+Samsung Galaxy Tablet, Electornics, 199.99
+HP Pro Wireless Printer, Office Products, 129.99
+File Organizer, Office Products, 15.99
+Miracle Advanced Deep Cleaning Carpet Shampoo, Pet Supplies, 11.99
+Milk-bone Dog Treats, Pet Supplies, 14.99
+Bicycle Helmet, Sports & Outdoors, 25.99
+Mountain Bike, Sports & Outdoors, 249.99
+;test.csv random comment (this line is a comment)
+;code in MySQL Workbench
+
+;price DECIMAL(5,2) NOT NULL,
+;5 represents the number of integers in the whole price
+;2 represents the number of decimal places after the period
