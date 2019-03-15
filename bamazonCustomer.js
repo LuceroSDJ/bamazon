@@ -155,7 +155,6 @@ function buyProduct() {
                     var subtotal = results[i].price * answers.numUnits;
                     
                     // HERE WE NEED TO CONNECT TO MYSQL 
-                    //var balance = stock_quantity - answers.numUnits;
                     connection.query(
                         'UPDATE products SET ? WHERE ?',
                         [
@@ -168,7 +167,7 @@ function buyProduct() {
                         ],
                         function(error) {
                             if (error) throw err;
-                            console.log("Bid placed successfully!");
+                            console.log('Stock quantity has been UPDATED!');
                             connection.end();
                             
                         }
@@ -207,7 +206,7 @@ This means updating the SQL database to reflect the remaining quantity.
 Once the update goes through, show the customer the total cost of their purchase.  */
 
 function buyAgain() {
-    
+   
     buyProduct();
 }
 
