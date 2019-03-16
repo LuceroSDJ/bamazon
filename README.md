@@ -22,8 +22,8 @@ Bamazon's goal is to facilitate viewing, searching, and changing information fro
 1. `Create MySQL Bamazon Database & 'products' table`
   * 'products' table was populated with 10 different products containing the item id, name, department, price, and stock quantity.
   * The items were imported from an external CSV (comma-separated values) file into MySQL Workbench
-  * [Demo Video](https://drive.google.com/file/d/1PLUc1YmuqyeAb0joCqTPJiC-gHHTWIjG/view)
   ![importCSVfile](https://user-images.githubusercontent.com/44692872/54465537-a486e780-4749-11e9-9b70-0f95abc86809.png)
+  * [Demo Video: Create Table](https://drive.google.com/file/d/1PLUc1YmuqyeAb0joCqTPJiC-gHHTWIjG/view)
 
 2. `Read MySQL data by running bamazonCustomer.js.`
   * This application will first display a table containing all of the items available for sale.
@@ -39,9 +39,9 @@ Bamazon's goal is to facilitate viewing, searching, and changing information fro
             * If confirmed 'yes', then customer is prompted with the same two initial messages.
             * If confirmed 'no', then connection ends.
   ```
-  * [Demo Video: 'Not enough items in stock'](https://drive.google.com/file/d/17rEM1cI0QPSIEhYrEpsRtEVOk-Nbe1hQ/view)
   ![displayMySqlData](https://user-images.githubusercontent.com/44692872/54465947-a356ba00-474b-11e9-953d-c4ca323436ea.png)
   ![mssgsNnotEnough](https://user-images.githubusercontent.com/44692872/54470532-4b35ad00-4777-11e9-8c44-aff8d6fa87a5.png)
+  * [Demo Video: 'Not enough items in stock'](https://drive.google.com/file/d/17rEM1cI0QPSIEhYrEpsRtEVOk-Nbe1hQ/view)
 
 3. `Update MySQL database to reflect the ramaining quantity`
   * If Bamazon has enough of the product, the app places the order.
@@ -62,7 +62,7 @@ Bamazon's goal is to facilitate viewing, searching, and changing information fro
     * This change is reflected in MySQL database.
   ```
   * In this example, we are buying 8 out of 8 Floral Print Summer Skirts, and the remaining balance of skirts is zero (8 - 8 = 0).
-  * [Demo Video: Delete Out-of-Stock Product](https://drive.google.com/file/d/1HJ7ZBa9E2an2mqDnQdAj11VZR7CFl_j4/view)
   ![zeroBalanceTerminal](https://user-images.githubusercontent.com/44692872/54471507-0c5c2300-4788-11e9-92ac-b95aa8e7ccf7.png)
   ![deletedMySQLdata](https://user-images.githubusercontent.com/44692872/54471541-ab811a80-4788-11e9-978c-d1652720dbd2.png)
+  * [Demo Video: Delete Out-of-Stock Product](https://drive.google.com/file/d/1HJ7ZBa9E2an2mqDnQdAj11VZR7CFl_j4/view)
 
