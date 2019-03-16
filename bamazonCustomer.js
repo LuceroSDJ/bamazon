@@ -1,35 +1,22 @@
 // ========= The app will take in orders from customers and deplete stock from the store's inventory. ========
 // ==============================  Challenge #1: Customer View   ====================================
-
-
-require("dotenv").config();
-console.log(process.env.MY_PASSWORD);  //process global object 
-/* ===================================  TEST CODE:  =============================================================
-//add code to read and set any environment variables with the dotenv package:
-// add the code required to import my password.js file and store it in a variable.
-var importedPWD = require("./password.js");  //my password was made available thanks to MODULARIZATION
-// now, my password can be accessed with the following line:
-var password = importedPWD.password;
-console.log(password);
+/*
 NOTES:
 password.js file has MySQL password which was grabbed from the process.env file. 
 process.env was created by adding ENVIRONMENT SPECIFIC VARIABLES to my .env file with my actual password 
 (.env file is being gitnored to keep my password private)
+*/
+require("dotenv").config();
+//console.log(process.env.MY_PASSWORD);  //process global object 
+// add code to read and set any environment variables with the dotenv package:
 
-
-/* ===================================  TEST CODE:  =============================================================
-var fs = require("fs");
-
-function randomCommand() {
-        fs.readFile(".env", "utf8", function(err, data) { //not this file
-          if(err) {
-            return console.log(err);
-          }
-          console.log(data.split("=")[1]);
-        })
-};
-randomCommand(); 
-=============================================================================================================== */
+// ===================================  TEST CODE:  =============================================================
+// add the code required to import my password.js file and store it in a variable.
+// var importedPWD = require("./password.js");  //my password was made available thanks to MODULARIZATION
+// now, my password can be accessed with the following line:
+// var password = importedPWD.password;
+// console.log(password);
+// ==============================================================================================================
 
 // require modules
 var inquirer = require('inquirer');
@@ -69,19 +56,17 @@ connection.connect(function(err) {
     Database Name: ${connection.config.database}
     Connection State: ${connection.state}
     `);
-   // connection.end();
     //after the console.log mssg, terminal will be left hanging expecting additional code because we do not have ===== connection.end ====
     //TO EXIT: PRESS CONTROL + C OR:
     // ===== connection.end(); ====== we are running this line at the end of our .then response function 
-    // =============  run start function after the connection is made to prompt the user
-    // ============== start();
+    // =============  run show Products function after the connection is made to prompt the user
 });
                    
-// this should be a CRUD APP 
-// I have already 'created' a table
-// showProducts() is reading and displaying my table data
+// this is a CRUD APP. Therefore, we are Creating, Reading, Updating, and Deleting data from MySQL Database
+// I have already 'created' a table ✔️
+// showProducts() is reading and displaying my table data ✔️
 function showProducts() {
-    // query the database for all  products available for sale. Here we are connecting to mysql table
+    // query the database for all  products available for sale. Here we are connecting to mysql database.
     connection.query('SELECT * FROM products', function(err, results) {
         if(err) throw err;
         // once we have connected to MySQL, prompt user with available products for sale
@@ -95,24 +80,21 @@ function showProducts() {
 }
 showProducts();
 
-
-
-// again, productID() is reading our table data (id) if question type: list
+// again, buyProduct() is reading our table data 
 // 6. The app should then prompt users with two messages.
 function buyProduct() {
     //query the database for all products on sale. 
-    /* The simplest form of .query() is .query(sqlString, callback), 
+    /* Documentation: The simplest form of .query() is .query(sqlString, callback), 
     where a SQL string is the first argument and the second is a callback:  */
     connection.query('SELECT * FROM products', function(err, results) {
         if(err) throw err;
-        // once I have all items, prompt user with the available product id's
+        // once all items are displayed, prompt user with two messages: id? / units?
         inquirer
             .prompt([
             {
-                // The first should ask them the ID of the product they would like to buy.
+                // The first requests the ID of the product they would like to buy.
                 name: 'chooseID',
                 type: 'input',
-                //type: 'list',
                 message: 'To place your order, select the product\'s id:',
                 filter: Number, 
                 default: 'Please enter a valid ID number',  
@@ -121,25 +103,14 @@ function buyProduct() {
                       return true;
                     }
                     return false;
-                  }
-                /*
-                choices: function() {
-                    var choices = [];
-                    //loop through the results
-                    for(var i = 0; i < results.length; i++) {
-                        //push results[i].id into choices[]
-                        choices.push(results[i].id);
-                    }
-                    return choices;
-                } //choices function(){} ends
-                */
+                }
             },
             {
-            // The second message should ask how many units of the product they would like to buy.  
+            // The second message asks how many units of the product they would like to buy.  
                 name: 'numUnits',
                 type: 'list',
                 message: 'How many usnits would you like to buy?',
-                // A separator can be added to any choices array: new inquirer.Separator()
+                // Documentation: A separator can be added to any choices array: new inquirer.Separator() cool!
                 choices: ['1', new inquirer.Separator(),'2', new inquirer.Separator(), '4', new inquirer.Separator(), '8', new inquirer.Separator(), '16', new inquirer.Separator()],
                 filter: Number
             }
@@ -153,7 +124,27 @@ function buyProduct() {
                     //return results[i].product_name;  //this line cuts through the loop once it finds the selected id
                     //create a function to update stock quantity available 
                     var subtotal = results[i].price * answers.numUnits;
-                    
+                    // add sales tax rate of 8.25%
+                    var salesTax =  subtotal * 0.0825;
+                    // calculate total amount
+                    var total = subtotal + salesTax;
+                    console.log(`
+                        〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️
+                        You purchased: ${answers.numUnits + ' ' + results[i].product_name + 's'}!
+                        ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ 
+                        Subtotal:  $ ${subtotal}
+                        Sales Tax: $ ${salesTax.toFixed(2)}
+                        TOTAL:     $ ${total.toFixed(2)}
+                        ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ 
+                        WE APPRECIATE YOUR BUSINESS!
+                        〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️
+                    `)
+
+                    /* 8. However, if your store does have enough of the product, you should fulfill the customer's order.
+                    This means updating the SQL database to reflect the remaining quantity.
+                    Once the update goes through, show the customer the total cost of their purchase.  */
+                    var balance = parseInt(results[i].stock_quantity) - answers.numUnits;
+                    console.log('Remaining number of ' + results[i].product_name + 's in stock : ' + balance);
                     // HERE WE NEED TO CONNECT TO MYSQL 
                     connection.query(
                         'UPDATE products SET ? WHERE ?',
@@ -168,11 +159,19 @@ function buyProduct() {
                         function(error) {
                             if (error) throw err;
                             console.log('Stock quantity has been UPDATED!');
+                            //delete row iwth zero stock qunatity
+                            // DELETE statment
+                            connection.query(`DELETE FROM products WHERE stock_quantity = 0`,
+                            [
+                                // delete a row with stock_quantity 0
+                                {
+                                    stock_quantity: 0 
+                                }
+                            ],
+                            )
                             connection.end();
-                            
-                        }
+                        }         
                     ); // connection. query ends  
-
                 }
                 else if(results[i].id === answers.chooseID && results[i].stock_quantity <= answers.numUnits) {
                     console.log('Not enough items in stock.');
@@ -193,23 +192,13 @@ function buyProduct() {
                         }) //.then ends
                 }  //else if closes
             } //for loop closes
-
         }) //.then(){} ends
     }); //connection.query({}) ends
 };  //productID() ends
 buyProduct();
 // ======= test code 
 
-
-/* 8. However, if your store does have enough of the product, you should fulfill the customer's order.
-This means updating the SQL database to reflect the remaining quantity.
-Once the update goes through, show the customer the total cost of their purchase.  */
-
 function buyAgain() {
-   
+    console.log('☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ Welcome back to Bamazon! ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★')
     buyProduct();
-}
-
-
-
-
+};
