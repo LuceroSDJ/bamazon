@@ -19,7 +19,7 @@ Bamazon's goal is to facilitate viewing, searching, and changing information fro
 * MySQL
 
 ### FUNCTIONALITY
-1. `Create MySQL Bamazon Database & 'products' table`
+#### 1. `Create MySQL Bamazon Database & 'products' table`
   * 'products' table was populated with 10 different products containing the item id, name, department, price, and stock quantity.
   * The items were imported from an external CSV (comma-separated values) file into MySQL Workbench
   ![importCSVfile](https://user-images.githubusercontent.com/44692872/54465537-a486e780-4749-11e9-9b70-0f95abc86809.png)
