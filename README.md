@@ -16,19 +16,18 @@ Bamazon's goal is to facilitate viewing, searching, and changing information fro
 ### MODULES
 * dotenv
 * inquirer
-* MySQL
 
 ### FUNCTIONALITY
 #### 1. `Create MySQL Bamazon Database & 'products' table`
   * [Demo Video: Create Table](https://drive.google.com/file/d/1PLUc1YmuqyeAb0joCqTPJiC-gHHTWIjG/view)
   * 'products' table was populated with 10 different products containing the item id, name, department, price, and stock quantity.
-  * The items were imported from an external CSV (comma-separated values) file into MySQL Workbench
+  * The items were imported from an external CSV (comma-separated values) file into MySQL Workbench.
   ![importCSVfile](https://user-images.githubusercontent.com/44692872/54465537-a486e780-4749-11e9-9b70-0f95abc86809.png)
 
 #### 2. `Read MySQL data by running bamazonCustomer.js.`
   * [Demo Video: 'Not enough items in stock'](https://drive.google.com/file/d/17rEM1cI0QPSIEhYrEpsRtEVOk-Nbe1hQ/view)
   * This application will first display a table containing all of the items available for sale.
-  * Then, it will pormpt user with two messages:
+  * Then, it will prompt user with two messages:
   ```
     * The first one asks the item_id of the product the user wants to buy.
     * The second one asks how many units of the product the user wants to buy.
