@@ -1,4 +1,4 @@
-// ========= The app will take in orders from customers and deplete stock from the store's inventory. ========
+// ========= The app will take in orders from customers and delete stock from the store's inventory. ========
 // ==============================  Challenge #1: Customer View   ====================================
 /*
 NOTES:
@@ -10,6 +10,12 @@ require("dotenv").config();
 //console.log(process.env.MY_PASSWORD);  //process global object 
 // add code to read and set any environment variables with the dotenv package:
 
+/* =================================== DOCUMENTATION ==================================
+The process object is a global that provides information about, and control over, 
+the current Node.js process. As a global, it is always available to Node.js applications 
+without using require().
+*/
+
 // ===================================  TEST CODE:  =============================================================
 // add the code required to import my password.js file and store it in a variable.
 // var importedPWD = require("./password.js");  //my password was made available thanks to MODULARIZATION
@@ -19,8 +25,8 @@ require("dotenv").config();
 // ==============================================================================================================
 
 // require modules
-var inquirer = require('inquirer');
-var mysql      = require('mysql');
+var inquirer = require("inquirer");
+var mysql      = require("mysql");
 
 // 1. Create a MySQL Database called bamazon. ✔️
 // 2. Then create a Table inside of that database called products. ✔️
@@ -33,8 +39,10 @@ var mysql      = require('mysql');
 // 4. Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table). ✔️
     // I will use a csv file to import the data to the table 
     /* In computing, a comma-separated values file is a delimited text file that uses a comma to separate values. 
-    A CSV file stores tabular data in plain text. Each line of the file is a data record. Each record consists of one or more fields, separated by commas. */
-      
+    A CSV file stores tabular data in plain text. Each line of the file is a data record. Each record consists of one or more fields, separated by commas. 
+    tabular data: Every row has the same set of column headers
+    */
+     
 /* 5. Then create a Node application called bamazonCustomer.js.  ✔️
 Running this application will first display all of the items available for sale. 
 Include the ids, names, and prices of products for sale.  ✔️ */ 

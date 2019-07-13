@@ -6,7 +6,7 @@ Bamazon is an Amazon-like storefront displayed through the Terminal using node.j
 * Delete
 
 ## GOAL
-Bamazon's goal is to facilitate viewing, searching, and changing information from MySQL Database and to provide an excellent shopping experience.
+Bamazon's goal is to facilitate viewing, updating, and deleting data from MySQL Database and to provide an excellent shopping experience.
 
 ### TECHNOLOGIES
 * JavaScript
