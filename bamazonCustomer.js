@@ -164,7 +164,7 @@ function buyProduct() {
                     /* 8. However, if your store does have enough of the product, you should fulfill the customer's order.
                     This means updating the SQL database to reflect the remaining quantity.
                     Once the update goes through, show the customer the total cost of their purchase.  */
-                    var balance = parseInt(results[i].stock_quantity) - answers.numUnits; 
+                    var balance = results[i].stock_quantity - answers.numUnits; 
                     console.log("Remaining number of " + results[i].product_name + "s in stock : " + balance);
                     // HERE WE NEED TO CONNECT TO MYSQL TO UPDATE THE DATA IN MYSQL DATABASE
                     connection.query(
@@ -182,14 +182,13 @@ function buyProduct() {
                             console.log("Stock quantity has been UPDATED!");
                             //delete row with zero stock quantity
                             // DELETE statement
-                            connection.query(`DELETE FROM products WHERE stock_quantity = 0`,
+                            connection.query("DELETE FROM products WHERE stock_quantity = 0",
                             [
                                 // delete a row with stock_quantity 0
                                 {
                                     stock_quantity: 0 
                                 }
-                            ],
-                            )
+                            ]);
                             connection.end();
                         }         
                     ); // connection. query ends  
