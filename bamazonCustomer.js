@@ -10,12 +10,6 @@ require("dotenv").config();
 //console.log(process.env.MY_PASSWORD);  //process global object 
 // add code to read and set any environment variables with the dotenv package:
 
-/* =================================== DOCUMENTATION ==================================
-The process object is a global that provides information about, and control over, 
-the current Node.js process. As a global, it is always available to Node.js applications 
-without using require().
-*/
-
 // ===================================  TEST CODE:  =============================================================
 // add the code required to import my password.js file and store it in a variable.
 // var importedPWD = require("./password.js");  //my password was made available thanks to MODULARIZATION
@@ -49,11 +43,17 @@ Include the ids, names, and prices of products for sale.  ✔️ */
 
 //create the connection information for the MySQL database
 var connection = mysql.createConnection({
-    host: 'localhost',      //mysql server is connected only to my localhost
+    host: "localhost",      //mysql server is connected only to my localhost
     port: 3306,             //this is mysql port that the module comes with
-    user: 'root',           //user should be 'root' unless I changed it to something else(no creo)
+    user: "root",           //user should be "root" unless I changed it to something else(no creo)
     password: process.env.MY_PASSWORD,
-    database: 'bamazon_DB' //this line indicates to which database we are connecting to (must have already been created)  
+    /* =================================== DOCUMENTATION ==================================
+    The process object is a global that provides information about, and control over, 
+    the current Node.js process. As a global, it is always available to Node.js applications 
+    without using require().
+    */
+    database: "bamazon_DB" //this line indicates to which database we are connecting to
+    //database must have already been created  
 });
             
 connection.connect(function(err) {
@@ -75,14 +75,14 @@ connection.connect(function(err) {
 // showProducts() is reading and displaying my table data ✔️
 function showProducts() {
     // query the database for all  products available for sale. Here we are connecting to mysql database.
-    connection.query('SELECT * FROM products', function(err, results) {
+    connection.query("SELECT * FROM products", function(err, results) {
         if(err) throw err;
         // once we have connected to MySQL, prompt user with available products for sale
         //console.log(results);
-        console.log('☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ Welcome to Bamazon! ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★  ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★')
+        console.log("☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ Welcome to Bamazon! ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★  ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★")
         for(var i = 0; i < results.length; i++){
             console.log("🛒 🆔: " + results[i].id + " | PRODUCT NAME: " + results[i].product_name + " | DEPARTMENT: " + results[i].department_name + " | 🛒 PRICE: $ " + results[i].price + " | QUANTITY: " + results[i].stock_quantity);
-            console.log('〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️')
+            console.log("〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️")
         }
     });
 }
@@ -91,54 +91,67 @@ showProducts();
 // again, buyProduct() is reading our table data 
 // 6. The app should then prompt users with two messages.
 function buyProduct() {
-    //query the database for all products on sale. 
+    // query the database for all products on sale. 
     /* Documentation: The simplest form of .query() is .query(sqlString, callback), 
     where a SQL string is the first argument and the second is a callback:  */
-    connection.query('SELECT * FROM products', function(err, results) {
+    connection.query("SELECT * FROM products", function(err, results) {
         if(err) throw err;
         // once all items are displayed, prompt user with two messages: id? / units?
         inquirer
             .prompt([
-            {
+            // pass in array of objects
+            {  
                 // The first requests the ID of the product they would like to buy.
-                name: 'chooseID',
-                type: 'input',
-                message: 'To place your order, select the product\'s id:',
+                name: "chooseID",
+                type: "list",
+                message: "To place your order, select the product's id:",
                 filter: Number, 
-                default: 'Please enter a valid ID number',  
-                validate: function(value) {
-                    if (isNaN(value) === false) {
-                      return true;
-                    }
-                    return false;
-                }
+                choices: ["100", new inquirer.Separator(), 
+                          "101", new inquirer.Separator(), 
+                          "102", new inquirer.Separator(), 
+                          "103", new inquirer.Separator(), 
+                          "104", new inquirer.Separator(), 
+                          "105", new inquirer.Separator(), 
+                          "106", new inquirer.Separator(), 
+                          "107", new inquirer.Separator(), 
+                          "108", new inquirer.Separator(), 
+                          "109", new inquirer.Separator()
+                         ]   
             },
             {
             // The second message asks how many units of the product they would like to buy.  
-                name: 'numUnits',
-                type: 'list',
-                message: 'How many usnits would you like to buy?',
+                name: "numUnits",
+                type: "list",
+                message: "How many units would you like to buy?",
+                filter: Number,
                 // Documentation: A separator can be added to any choices array: new inquirer.Separator() cool!
-                choices: ['1', new inquirer.Separator(),'2', new inquirer.Separator(), '4', new inquirer.Separator(), '8', new inquirer.Separator(), '16', new inquirer.Separator()],
-                filter: Number
+                choices: ["1", new inquirer.Separator(),
+                          "2", new inquirer.Separator(), 
+                          "4", new inquirer.Separator(), 
+                          "8", new inquirer.Separator(), 
+                          "16", new inquirer.Separator()
+                         ]
             }
         ]) //prompt({}) ends
-        .then(function(answers) {
+        .then(function(answers) {   //.then(answers => {...}) [ES6 syntax]
         /* 7. Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
         If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through. */
-            console.log(answers);  //works as expected
-            for(var i = 0; i < results.length; i++) {
+            console.log(answers);  //answers are the USER's FEEDBACK
+            for(var i = 0; i < results.length; i++) {  //results refer to the data we get from MySQL database
                 if(results[i].id === answers.chooseID && results[i].stock_quantity >= answers.numUnits) {  //works as expected
+                    // chooseID refers to the name property value of the promp question constructed in lines 105 to 114
                     //return results[i].product_name;  //this line cuts through the loop once it finds the selected id
                     //create a function to update stock quantity available 
+                    //multiply itme's price * number of units to purchase (USER's INPUT)
                     var subtotal = results[i].price * answers.numUnits;
-                    // add sales tax rate of 8.25%
+                    // add sales tax rate of 8.25% by multiplying subtotal * tax rate
                     var salesTax =  subtotal * 0.0825;
                     // calculate total amount
                     var total = subtotal + salesTax;
+                    // the receipt is just being console.logged to the user
                     console.log(`
                         〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️
-                        You purchased: ${answers.numUnits + ' ' + results[i].product_name + 's'}!
+                        You purchased: ${answers.numUnits + " " + results[i].product_name + "s!"}
                         ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ 
                         Subtotal:  $ ${subtotal}
                         Sales Tax: $ ${salesTax.toFixed(2)}
@@ -146,16 +159,16 @@ function buyProduct() {
                         ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ 
                         WE APPRECIATE YOUR BUSINESS!
                         〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️
-                    `)
-
+                    `) 
+                    // The toFixed() method converts a number into a string, keeping a specified number of decimals.
                     /* 8. However, if your store does have enough of the product, you should fulfill the customer's order.
                     This means updating the SQL database to reflect the remaining quantity.
                     Once the update goes through, show the customer the total cost of their purchase.  */
-                    var balance = parseInt(results[i].stock_quantity) - answers.numUnits;
-                    console.log('Remaining number of ' + results[i].product_name + 's in stock : ' + balance);
-                    // HERE WE NEED TO CONNECT TO MYSQL 
+                    var balance = parseInt(results[i].stock_quantity) - answers.numUnits; 
+                    console.log("Remaining number of " + results[i].product_name + "s in stock : " + balance);
+                    // HERE WE NEED TO CONNECT TO MYSQL TO UPDATE THE DATA IN MYSQL DATABASE
                     connection.query(
-                        'UPDATE products SET ? WHERE ?',
+                        "UPDATE products SET ? WHERE ?",
                         [
                             {
                                 stock_quantity: balance 
@@ -166,9 +179,9 @@ function buyProduct() {
                         ],
                         function(error) {
                             if (error) throw err;
-                            console.log('Stock quantity has been UPDATED!');
-                            //delete row iwth zero stock qunatity
-                            // DELETE statment
+                            console.log("Stock quantity has been UPDATED!");
+                            //delete row with zero stock quantity
+                            // DELETE statement
                             connection.query(`DELETE FROM products WHERE stock_quantity = 0`,
                             [
                                 // delete a row with stock_quantity 0
@@ -181,17 +194,18 @@ function buyProduct() {
                         }         
                     ); // connection. query ends  
                 }
-                else if(results[i].id === answers.chooseID && results[i].stock_quantity <= answers.numUnits) {
-                    console.log('Not enough items in stock.');
+                // AS I CONTINUE TO LOOP THROUGH MYSQL DATA & I DO NOT HAVE ENOUGH ITEMS IN MY INVENTORY:
+                else if(results[i].id === answers.chooseID && results[i].stock_quantity < answers.numUnits) {
+                    console.log("Not enough items in stock! We apologize for the inconvenience.");
                     inquirer
                         .prompt({
-                            type: 'confirm', 
-                            name: 'buyAgain',
-                            message: 'Would you like to decrease the quantity of items?'
+                            type: "confirm", 
+                            name: "buyAgain",
+                            message: "Would you like to decrease the quantity of items?"
                         })
                         .then(function(answers) {
                             if(answers.buyAgain) {
-                                //console.log('buy again');
+                                //call buyAgain() function
                                 buyAgain();   
                             }
                             else {
@@ -203,10 +217,11 @@ function buyProduct() {
         }) //.then(){} ends
     }); //connection.query({}) ends
 };  //productID() ends
+//call main function buyProduct()
 buyProduct();
 // ======= test code 
 
 function buyAgain() {
-    console.log('☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ Welcome back to Bamazon! ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★')
+    console.log("☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ Welcome back to Bamazon! ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★")
     buyProduct();
 };

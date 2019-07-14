@@ -8,16 +8,21 @@ Bamazon is an Amazon-like storefront displayed through the Terminal using node.j
 ## GOAL
 Bamazon's goal is to facilitate viewing, updating, and deleting data from MySQL Database and to provide an excellent shopping experience.
 
-### TECHNOLOGIES
+## TECHNOLOGIES
 * JavaScript
 * node.js
 * MySQL
 
-### MODULES
+## MODULES
 * dotenv
 * inquirer
 
-### FUNCTIONALITY
+## `HOW TO RUN BAMAZON IN THE TERMINAL?`
+1. `cd [directory name]`
+2. `ls` command to see all available files & locate our main js file
+3. run `node [js file name]`
+
+## FUNCTIONALITY
 #### 1. `Create MySQL Bamazon Database & 'products' table`
   * [Demo Video: Create Table](https://drive.google.com/file/d/1PLUc1YmuqyeAb0joCqTPJiC-gHHTWIjG/view)
   * 'products' table was populated with 10 different products containing the item id, name, department, price, and stock quantity.
@@ -64,4 +69,3 @@ Bamazon's goal is to facilitate viewing, updating, and deleting data from MySQL 
   * In this example, we are buying 8 out of 8 Floral Print Summer Skirts, and the remaining balance of skirts is zero (8 - 8 = 0).
   ![zeroBalanceTerminal](https://user-images.githubusercontent.com/44692872/54471507-0c5c2300-4788-11e9-92ac-b95aa8e7ccf7.png)
   ![deletedMySQLdata](https://user-images.githubusercontent.com/44692872/54471541-ab811a80-4788-11e9-978c-d1652720dbd2.png)
-
