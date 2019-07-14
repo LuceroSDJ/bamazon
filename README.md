@@ -13,8 +13,9 @@ Bamazon's goal is to facilitate viewing, updating, and deleting data from MySQL 
 * node.js
 * MySQL
 
-## MODULES
+## NPM MODULES
 * dotenv
+* mysql
 * inquirer
 
 ## `HOW TO RUN BAMAZON IN THE TERMINAL?`
@@ -71,7 +72,7 @@ Bamazon's goal is to facilitate viewing, updating, and deleting data from MySQL 
   ![deletedMySQLdata](https://user-images.githubusercontent.com/44692872/54471541-ab811a80-4788-11e9-978c-d1652720dbd2.png)
 
 ## 1 lodash vulnerability found in package-lock.json yesterday
-Please see the screenshots below to see how I applied the `Remediation`
+Please see the screen shots below to see how I applied the `Remediation`
 
 ### Original package-lock.json
 ![originalJSON](https://user-images.githubusercontent.com/44692872/61178399-ec136800-a5b1-11e9-9838-782531b6eaf6.png)

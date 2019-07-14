@@ -75,7 +75,8 @@ connection.connect(function(err) {
 // showProducts() is reading and displaying my table data ✔️
 function showProducts() {
     // query the database for all  products available for sale. Here we are connecting to mysql database.
-    connection.query("SELECT * FROM products", function(err, results) {
+    connection.query("SELECT * FROM `products`", function(err, results) {
+        // results will contain the results of the query
         if(err) throw err;
         // once we have connected to MySQL, prompt user with available products for sale
         //console.log(results);
@@ -94,7 +95,7 @@ function buyProduct() {
     // query the database for all products on sale. 
     /* Documentation: The simplest form of .query() is .query(sqlString, callback), 
     where a SQL string is the first argument and the second is a callback:  */
-    connection.query("SELECT * FROM products", function(err, results) {
+    connection.query("SELECT * FROM `products`", function(err, results) {
         if(err) throw err;
         // once all items are displayed, prompt user with two messages: id? / units?
         inquirer
@@ -168,27 +169,13 @@ function buyProduct() {
                     console.log("Remaining number of " + results[i].product_name + "s in stock : " + balance);
                     // HERE WE NEED TO CONNECT TO MYSQL TO UPDATE THE DATA IN MYSQL DATABASE
                     connection.query(
-                        "UPDATE products SET ? WHERE ?",
-                        [
-                            {
-                                stock_quantity: balance 
-                            },
-                            {
-                                id: results[i].id
-                            }
-                        ],
+                        "UPDATE `products` SET stock_quantity = ? WHERE id = ?", [balance, results[i].id],
                         function(error) {
-                            if (error) throw err;
+                            if (error) throw error;
                             console.log("Stock quantity has been UPDATED!");
                             //delete row with zero stock quantity
                             // DELETE statement
-                            connection.query("DELETE FROM products WHERE stock_quantity = 0",
-                            [
-                                // delete a row with stock_quantity 0
-                                {
-                                    stock_quantity: 0 
-                                }
-                            ]);
+                            connection.query("DELETE FROM `products` WHERE `stock_quantity` = ?", 0);
                             connection.end();
                         }         
                     ); // connection. query ends  
