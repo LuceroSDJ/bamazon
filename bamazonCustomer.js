@@ -2,8 +2,8 @@
 // ==============================  Challenge #1: Customer View   ====================================
 /*
 NOTES:
-password.js file has MySQL password which was grabbed from the process.env file. 
-process.env was created by adding ENVIRONMENT SPECIFIC VARIABLES to my .env file with my actual password 
+password.js file contains MySQL password, which was grabbed from the process.env file. 
+process.env was created by adding ENVIRONMENT SPECIFIC VARIABLES to my .env file, which contains my actual password 
 (.env file is being gitnored to keep my password private)
 */
 require("dotenv").config();
@@ -11,7 +11,7 @@ require("dotenv").config();
 // add code to read and set any environment variables with the dotenv package:
 
 // ===================================  TEST CODE:  =============================================================
-// add the code required to import my password.js file and store it in a variable.
+// add code required to import my password.js file and store it in a variable.
 // var importedPWD = require("./password.js");  //my password was made available thanks to MODULARIZATION
 // now, my password can be accessed with the following line:
 // var password = importedPWD.password;
@@ -48,7 +48,7 @@ var connection = mysql.createConnection({
     user: "root",           //user should be "root" unless I changed it to something else(no creo)
     password: process.env.MY_PASSWORD,
     /* =================================== DOCUMENTATION ==================================
-    The process object is a global that provides information about, and control over, 
+    The process object is global. It provides information about, and control over, 
     the current Node.js process. As a global, it is always available to Node.js applications 
     without using require().
     */
@@ -67,14 +67,14 @@ connection.connect(function(err) {
     //after the console.log mssg, terminal will be left hanging expecting additional code because we do not have ===== connection.end ====
     //TO EXIT: PRESS CONTROL + C OR:
     // ===== connection.end(); ====== we are running this line at the end of our .then response function 
-    // =============  run show Products function after the connection is made to prompt the user
+    // =============  run showProducts() function after connection is made to prompt the user
 });
                    
-// this is a CRUD APP. Therefore, we are Creating, Reading, Updating, and Deleting data from MySQL Database
+// bamazon is a CRUD APP. Therefore, we are Creating, Reading, Updating, and Deleting data from MySQL Database
 // I have already 'created' a table ✔️
 // showProducts() is reading and displaying my table data ✔️
 function showProducts() {
-    // query the database for all  products available for sale. Here we are connecting to mysql database.
+    // query the database for all  products available for sale (Here we are connecting to mysql database)
     connection.query("SELECT * FROM `products`", function(err, results) {
         // results will contain the results of the query
         if(err) throw err;
@@ -102,10 +102,10 @@ function buyProduct() {
             .prompt([
             // pass in array of objects
             {  
-                // The first requests the ID of the product they would like to buy.
+                //Requests product ID of item user would like to buy.
                 name: "chooseID",
                 type: "list",
-                message: "To place your order, select the product's id:",
+                message: "Please select product ID to place your order:",
                 filter: Number, 
                 choices: ["100", new inquirer.Separator(), 
                           "101", new inquirer.Separator(), 
@@ -120,7 +120,7 @@ function buyProduct() {
                          ]   
             },
             {
-            // The second message asks how many units of the product they would like to buy.  
+            // Request number of units.  
                 name: "numUnits",
                 type: "list",
                 message: "How many units would you like to buy?",
@@ -145,11 +145,11 @@ function buyProduct() {
                     //create a function to update stock quantity available 
                     //multiply itme's price * number of units to purchase (USER's INPUT)
                     var subtotal = results[i].price * answers.numUnits;
-                    // add sales tax rate of 8.25% by multiplying subtotal * tax rate
+                    // add sales tax rate of 8.25% (multiply subtotal * tax rate)
                     var salesTax =  subtotal * 0.0825;
                     // calculate total amount
                     var total = subtotal + salesTax;
-                    // the receipt is just being console.logged to the user
+                    // console.log receipt
                     console.log(`
                         〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️
                         You purchased: ${answers.numUnits + " " + results[i].product_name + "s!"}
@@ -180,7 +180,7 @@ function buyProduct() {
                         }         
                     ); // connection. query ends  
                 }
-                // AS I CONTINUE TO LOOP THROUGH MYSQL DATA & I DO NOT HAVE ENOUGH ITEMS IN MY INVENTORY:
+                // AS I CONTINUE LOOPING THROUGH MYSQL DATA & I DO NOT HAVE ENOUGH ITEMS IN MY INVENTORY:
                 else if(results[i].id === answers.chooseID && results[i].stock_quantity < answers.numUnits) {
                     console.log("Not enough items in stock! We apologize for the inconvenience.");
                     inquirer
@@ -203,9 +203,9 @@ function buyProduct() {
         }) //.then(){} ends
     }); //connection.query({}) ends
 };  //productID() ends
+
 //call main function buyProduct()
 buyProduct();
-// ======= test code 
 
 function buyAgain() {
     console.log("☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ Welcome back to Bamazon! ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★")
