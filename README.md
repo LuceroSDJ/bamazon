@@ -70,13 +70,3 @@ Bamazon's goal is to facilitate viewing, updating, and deleting data from MySQL 
   * In this example, we are buying 8 out of 8 Floral Print Summer Skirts, and the remaining balance of skirts is zero (8 - 8 = 0).
   ![zeroBalanceTerminal](https://user-images.githubusercontent.com/44692872/54471507-0c5c2300-4788-11e9-92ac-b95aa8e7ccf7.png)
   ![deletedMySQLdata](https://user-images.githubusercontent.com/44692872/54471541-ab811a80-4788-11e9-978c-d1652720dbd2.png)
-
-## 1 lodash vulnerability found in package-lock.json yesterday
-Please see the screen shots below to see how I applied the `Remediation`
-
-### Original package-lock.json
-![originalJSON](https://user-images.githubusercontent.com/44692872/61178399-ec136800-a5b1-11e9-9838-782531b6eaf6.png)
-
-### Remediation
-![Remediation](https://user-images.githubusercontent.com/44692872/61178412-1c5b0680-a5b2-11e9-9029-161ec9b87d44.png)
-
